@@ -1,0 +1,17 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-5, 5, 400)
+y = np.tanh(x)
+
+plt.figure(figsize=(8, 4))
+plt.plot(x, y, label='tanh(x)', color='purple')
+plt.title('Hyperbolic Tangent Function')
+plt.xlabel('x')
+plt.ylabel('tanh(x)')
+plt.grid(True)
+plt.axhline(0, color='black', linewidth=0.5)
+plt.axvline(0, color='black', linewidth=0.5)
+plt.legend()
+plt.tight_layout()
+plt.show()
