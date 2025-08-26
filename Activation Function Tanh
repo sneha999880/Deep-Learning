@@ -1,0 +1,6 @@
+import math
+
+def tanh(x):
+    return math.tanh(x)
+
+print(tanh(4.0))
