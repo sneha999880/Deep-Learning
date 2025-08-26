@@ -1,0 +1,11 @@
+# Activation function
+def relu(z):
+    return max(0, z)
+
+# Derivative of ReLU activation function
+def relu_prime(z):
+    return 1 if z > 0 else 0
+
+values = [-2, 0, 3, 5]
+for val in values:
+    print(f"ReLU({val}) = {relu(val)}, ReLU'({val}) = {relu_prime(val)}")
