@@ -1,0 +1,68 @@
+#Import Library
+
+import tensorflow as tf
+from tensorflow.keras.models import Sequential #sequentials -> use for models
+from tensorflow.keras.layers import Dense, Flatten #dense layer -> hidden layer , flatten layer -> to reduce the dimension
+from tensorflow.keras.datasets import mnist #mnist -> handwritten datasets
+from tensorflow.keras.utils import to_categorical
+
+#Load and Preprocess the Data
+import matplotlib.pyplot as plt
+
+#Load Dataset
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+
+#Display the first 10 Training Images
+plt.figure(figsize=(12,6))
+for i in range(10):
+    plt.subplot(2,5,i+1)
+    plt.imshow(x_train[i], cmap='gray')
+    plt.title(f"Label: {y_train[i]}")
+    plt.axis('off')
+plt.show()
+
+#Normalize Pixel Values (0-255) to (0-1)
+x_train = x_train / 255.0
+x_test = x_test / 255.0
+
+#One-hot encode the labels
+y_train = to_categorical(y_train)
+y_test = to_categorical(y_test)
+
+#Build The Neural Network
+
+model = Sequential([
+    Flatten(input_shape=(28,28)),   #flatten 2D image to 1D
+    Dense(128, activation='relu'),  #hidden layer with 128 neurons
+    Dense(64, activation='relu'),   #hidden layer with 64 neurons
+    Dense(10, activation='softmax') #output layer for 10 classes
+])
+
+# Compile the model
+model.compile(
+    optimizer='adam',
+    loss='categorical_crossentropy',
+    metrics=['accuracy']
+)
+
+#Training the Model
+
+history = model.fit(
+    x_train, y_train,
+    epochs=5,
+    batch_size=32,
+    validation_split=0.1
+)
+
+#Evaluate the Model
+
+test_loss, test_accuracy = model.evaluate(x_test, y_test)
+print(f"Test Accuracy: {test_accuracy * 100:.2f}%")
+
+# Make Prediction
+prediction = model.predict(x_test)
+
+# Example: Predict class of the first image
+import numpy as np
+predicted_class = np.argmax(prediction[0])
+print(f"Predicted digit: {predicted_class}")
