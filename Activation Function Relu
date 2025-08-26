@@ -1,0 +1,8 @@
+
+def relu(z):
+    return max(0, z)
+
+value = [-1,-2000, 30, 40]
+for i in value:
+    output = relu(i)
+    print(f"ReLU({i}) = {output}")
