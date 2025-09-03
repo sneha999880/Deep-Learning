@@ -1,0 +1,20 @@
+import tensorflow as tf
+from tensorflow.keras import layers, models
+
+# Define the model architecture
+model = models.Sequential([
+    layers.Dense(64, activation='relu', input_shape=(100,)),  # Input layer with 100 features
+    layers.Dense(32, activation='relu'),                      # Hidden layer with 32 neurons
+    layers.Dense(10, activation='softmax')                    # Output layer for 10 classes
+])
+
+# Compile the model
+model.compile(optimizer='adam',
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
+
+# Summary of the model
+model.summary()
+
+# Example training call (uncomment when x_train and y_train are defined)
+# model.fit(x_train, y_train, epochs=10, batch_size=32)
